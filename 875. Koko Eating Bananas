@@ -1,0 +1,35 @@
+int maxi(vector<int>& arr){
+        int maxi=-1e9;
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            maxi=max(maxi,arr[i]);
+        }
+        return maxi;
+    }
+
+    long long calHour(vector<int>& arr, int h){
+        int n=arr.size();
+        long long total=0;
+        for(int i=0;i<n;i++){
+            total+=ceil((double)arr[i]/(double)h);
+        }
+        return total;
+    }
+    int minEatingSpeed(vector<int>& arr, int h) {
+        int n=arr.size();
+        int low=1,high=maxi(arr);
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            double totalH=calHour(arr,mid);
+            if(totalH <= h){
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return low;
+
+        
+        
+    }
