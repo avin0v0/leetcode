@@ -1,0 +1,20 @@
+stack<pair<int, int>> st;
+    int ind;
+    
+    StockSpanner() {
+        ind=-1;
+        
+    }
+    
+    int next(int price) {
+        ind++;
+        while (!st.empty() && st.top().first <= price) {
+            st.pop();
+        }
+        
+        int ans = st.empty() ? ind + 1 : ind - st.top().second;
+        st.push({price, ind});
+        return ans;
+        
+    }
+};
