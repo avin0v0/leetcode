@@ -1,0 +1,39 @@
+void solve(int start, const string &s, int &ans, bool &negative, bool &found) {
+        if (start >= s.size()) return;
+
+        if (s[start] == ' ' && !found) {
+            solve(start + 1, s, ans, negative, found);
+        } else if ((s[start]=='+' || s[start] == '-') && !found) {
+            negative = s[start]=='-';
+            found = true;
+            solve(start + 1, s, ans, negative, found);
+        } else if (s[start] >= '0' && s[start] <= '9') {
+            if (ans > (INT_MAX - (s[start] - '0')) / 10) {
+                ans = negative ? INT_MIN : INT_MAX;
+                return;
+            }
+            ans = ans * 10 + (s[start] - '0');
+            found = true;
+            solve(start + 1, s, ans, negative, found);
+        } else {
+            return;
+        }
+    }
+
+    int myAtoi(string s) {
+        int ans = 0;
+        bool negative = false;
+        bool found = false;
+
+        solve(0, s, ans, negative, found);
+
+        if (negative) {
+            if (ans == INT_MIN) {
+                return INT_MIN;
+            } else {
+                return -ans;
+            }
+        }
+
+        return ans;
+    }
