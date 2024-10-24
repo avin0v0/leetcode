@@ -1,0 +1,16 @@
+int jump(vector<int>& nums) {
+        int n=nums.size();
+        int jumps=0;
+        int i=0,j=0;
+        while(j<n-1){
+            int farthest=0;
+            for(int ind=i;ind<=j;ind++){
+                farthest=max(ind+nums[ind],farthest);
+            }
+            i=j+1;
+            j=farthest;
+            jumps=jumps+1;
+        }
+        return jumps;
+        
+    }
