@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maximumPopulation(vector<vector<int>>& logs) {
+        sort(logs.begin(),logs.end());
+        vector<int> v(101,0);
+        int year=0;
+        int maxi=INT_MIN;
+        for(auto it: logs){
+            int start=it[0];
+            int end=it[1];
+            for(int i=start;i<end;i++){
+                v[i-1950]++;
+                if(v[i-1950]>maxi){
+                    maxi=v[i-1950];
+                    year=i;
+                }
+            }
+        }
+        return year;
+    }
+};
