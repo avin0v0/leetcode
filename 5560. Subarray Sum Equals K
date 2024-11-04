@@ -1,0 +1,17 @@
+int subarraySum(vector<int>& arr, int k) {
+        int n=arr.size();
+        unordered_map<int,int> mpp;
+        int total=0,prefix_sum=0;
+        mpp[0]=1;
+        for(int i=0;i<n;i++){
+            prefix_sum+=arr[i];
+            if(mpp.count(prefix_sum-k)){
+                total+=mpp[prefix_sum-k];
+                mpp[prefix_sum]++;
+            }
+            else{
+                mpp[prefix_sum]++;
+            }
+        }
+        return total;
+    }
