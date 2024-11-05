@@ -1,0 +1,40 @@
+void lps(string &s,vector<int> &lps){
+
+        int pref=0,suff=1;
+        while(suff<s.size()){
+            if(s[pref]==s[suff]){
+                lps[suff]=pref+1;
+                pref++,suff++;
+            }
+
+            else{
+                if(pref==0){
+                    lps[suff]=0;
+                    suff++;
+                }
+                else{
+                    pref=lps[pref-1];
+                }
+            }
+        }
+    }
+    int strStr(string haystack, string needle) {
+        vector<int> arr(needle.size(),0);
+        lps(needle,arr);
+        int first=0,sec=0;
+        while(first<haystack.size() && sec<needle.size()){
+
+            //if matches...
+            if(haystack[first]==needle[sec]){
+                first++,sec++;
+            }
+
+            else{
+                if(sec==0) first++;
+                else sec=arr[sec-1];
+            }
+        }
+        if(sec==needle.size()) return first-sec;
+        else return -1;
+        
+    }
