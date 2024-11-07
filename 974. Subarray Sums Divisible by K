@@ -1,0 +1,21 @@
+int subarraysDivByK(vector<int>& nums, int k) {
+        int n=nums.size();
+        unordered_map<int,int>mpp;
+        mpp[0]=1;
+        int preSum=0,rem=0,tot=0;
+        for(int i=0;i<n;i++){
+            preSum+=nums[i];
+            rem=preSum%k;
+            if(rem<0) rem+=k;
+
+            if(mpp.count(rem)){
+                tot+=mpp[rem];
+                mpp[rem]++;
+            }
+            else{
+                mpp[rem]=1;
+            }
+
+        }
+        return tot;
+    }
